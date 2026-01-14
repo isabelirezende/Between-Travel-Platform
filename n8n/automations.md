@@ -8,7 +8,7 @@ It is triggered by a webhook connected to the Lovable frontend form.
 
 ## 🔁 Workflow Overview
 
-1. Receive traveler data via HTTP POST
+1. Receive traveler data via HTTP POST (webhook)
 2. Normalize and validate the input fields
 3. Store the traveler information in Google Sheets
 4. Generate a personalized welcome message
