@@ -1,6 +1,6 @@
 # 🌍 Between
 
-**Between** is a travel connection platform focused on what happens *between destinations* — where strangers meet, plans shift, and real stories begin.
+**Between** is a travel connection platform focused on what happens *between destinations*: where strangers meet, plans shift, and real stories begin.
 
 This project was built to demonstrate how no-code tools can be combined with automation to create a real, scalable product.
 
@@ -18,11 +18,11 @@ This project was built to demonstrate how no-code tools can be combined with aut
 
 ## 🧩 Tech Stack
 
-- **Lovable** – Frontend & landing page
-- **n8n** – Workflow automation
-- **Google Sheets** – Lightweight database
-- **Email Service (SMTP)** – Automated onboarding
-- **Webhooks (HTTP POST)** – System integration
+- **Lovable** : Frontend & landing page
+- **n8n** : Workflow automation
+- **Google Sheets** : Lightweight database
+- **Email Service (SMTP)** : Automated onboarding
+- **Webhooks (HTTP POST)** : System integration
 
 ---
 
