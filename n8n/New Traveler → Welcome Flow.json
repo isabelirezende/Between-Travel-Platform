@@ -1,0 +1,125 @@
+{
+  "name": "New Traveler → Welcome Flow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "new-traveler",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [0, 0],
+      "id": "webhook-node",
+      "name": "Webhook",
+      "webhookId": "WEBHOOK_ID"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            { "name": "Name", "value": "={{ $json.body.name }}", "type": "string" },
+            { "name": "Nationality", "value": "={{ $json.body.nationality }}", "type": "string" },
+            { "name": "Languages", "value": "={{ $json.body.languages }}", "type": "string" },
+            { "name": "Destination", "value": "={{ $json.body.destination }}", "type": "string" },
+            { "name": "Dates", "value": "={{ $json.body.dates }}", "type": "string" },
+            { "name": "Interests", "value": "={{ $json.body.interests }}", "type": "string" },
+            { "name": "Email", "value": "={{ $json.body.email }}", "type": "string" }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [200, 0],
+      "id": "format-data",
+      "name": "Format Traveler Data"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": "YOUR_GOOGLE_SHEET_ID",
+        "sheetName": "SHEET_NAME",
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $json.Name }}",
+            "Nationality": "={{ $json.Nationality }}",
+            "Languages": "={{ $json.Languages }}",
+            "Destination": "={{ $json.Destination }}",
+            "Dates": "={{ $json.Dates }}",
+            "Interests": "={{ $json.Interests }}",
+            "Email": "={{ $json.Email }}"
+          }
+        }
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [420, 0],
+      "id": "save-sheet",
+      "name": "Save Traveler to Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "GOOGLE_SHEETS_CREDENTIAL"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "name": "message",
+              "value": "=Hi {{$json.Name}} 👋\n\nWelcome to Between.\n\nBetween is about the moments that happen between places and people.\n\nYou’re now visible to travelers heading to {{$json.Destination}} during {{$json.Dates}}.\nExplore profiles, connect naturally, and let plans happen.\n\nEnjoy the journey ✨\n— Between",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "include": "selected",
+        "includeFields": "Email"
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [640, 0],
+      "id": "welcome-message",
+      "name": "Generate Welcome Message"
+    },
+    {
+      "parameters": {
+        "fromEmail": "no-reply@between.travel",
+        "toEmail": "={{ $json.Email }}",
+        "subject": "Welcome to Between ✨",
+        "emailFormat": "text",
+        "text": "={{ $json.message }}"
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [820, 0],
+      "id": "send-email",
+      "name": "Send Welcome Email",
+      "credentials": {
+        "smtp": {
+          "id": "SMTP_CREDENTIAL"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{ "node": "Format Traveler Data", "type": "main", "index": 0 }]]
+    },
+    "Format Traveler Data": {
+      "main": [[{ "node": "Save Traveler to Sheets", "type": "main", "index": 0 }]]
+    },
+    "Save Traveler to Sheets": {
+      "main": [[{ "node": "Generate Welcome Message", "type": "main", "index": 0 }]]
+    },
+    "Generate Welcome Message": {
+      "main": [[{ "node": "Send Welcome Email", "type": "main", "index": 0 }]]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
