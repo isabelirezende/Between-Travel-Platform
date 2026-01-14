@@ -37,6 +37,8 @@ This project was built to demonstrate how no-code tools can be combined with aut
 4. Data is stored in Google Sheets
 5. A personalized welcome email is sent automatically
 
+See `/n8n/New Traveler → Welcome Flow.json` for the full automation logic.
+
 ---
 
 ## 🧠 Why "Between"?
