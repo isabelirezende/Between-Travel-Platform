@@ -4,6 +4,9 @@
 
 This project was built to demonstrate how no-code tools can be combined with automation to create a real, scalable product.
 
+## 🔗 Live Demo
+👉 https://beetwentravel.lovable.app
+
 ---
 
 ## ✨ Key Features
