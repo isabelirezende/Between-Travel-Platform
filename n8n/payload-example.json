@@ -1,0 +1,9 @@
+{
+  "name": "Jane Doe",
+  "nationality": "Brazil",
+  "email": "jane@example.com",
+  "destination": "Lisbon",
+  "dates": "2025-03-10 to 2025-03-20",
+  "interests": ["Culture", "Food", "Nightlife"],
+  "languages": ["EN", "PT"]
+}
